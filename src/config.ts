@@ -1,13 +1,20 @@
-import { config } from 'dotenv';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { config } from "dotenv";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 
 config();
-const defaultConfig = JSON.parse(readFileSync(resolve(__dirname, '../config.json')).toString());
+const defaultConfig = JSON.parse(
+  readFileSync(resolve(__dirname, "../config.json")).toString()
+);
 
 export interface IConfig {
   PORT: number;
   express_debug: boolean;
+  mongo_host: string;
+  mongo_user: string;
+  mongo_pass: string;
+  mongo_database: string;
+  mongo_debug: boolean;
 }
 
 export function configuration(): IConfig {
