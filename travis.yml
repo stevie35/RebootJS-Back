@@ -7,6 +7,6 @@ stages:
 jobs:
   include:
   - name: Transpile
-      stage: transpile
-      install: npm install
-      script: npm run build
+    stage: transpile
+    install: npm install
+    script: npm run build
