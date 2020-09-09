@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import passport from "passport";
-import { IProfile } from "../models/profiles";
+import { IProfile, Profile } from "../models/profiles";
 
 const router = Router();
 
@@ -23,5 +23,15 @@ router.post("/", (req: Request, res: Response) => {
     }
   })(req, res);
 });
+
+router.get('/', (req: Request, res: Response) => {
+  Profile.find({}, '_id email firstname lastname')
+    .then(profiles => {
+      return res.status(200).send(profiles);
+    })
+    .catch(error => {
+      return res.status(500).send();
+    })
+})
 
 export default router;

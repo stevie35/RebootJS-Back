@@ -13,6 +13,7 @@ import {
 import session from "express-session";
 import connectMongo from "connect-mongo";
 import mongoose from "mongoose";
+import cors from "cors";
 
 const MongoStore = connectMongo(session);
 
@@ -24,6 +25,7 @@ export function createExpressApp(config: IConfig): express.Express {
   app.use(morgan("combined"));
   app.use(helmet());
   app.use(express.json());
+  app.use(cors());
 
   app.use(authenticationInitialize());
 
@@ -44,7 +46,7 @@ export function createExpressApp(config: IConfig): express.Express {
     res.status(500).send(!express_debug ? "Oups" : err);
   }) as ErrorRequestHandler);
 
-  app.use("/profile", profileRoutes);
+  app.use("/profiles", profileRoutes);
 
   app.use("/login", loginRoute);
 
@@ -52,7 +54,7 @@ export function createExpressApp(config: IConfig): express.Express {
     res.send("This is the boilerplate for Flint Messenger app");
   });
 
-  app.post("/profile", (req: Request, res: Response) => {
+  /*app.post("/profile", (req: Request, res: Response) => {
     const { email, firstname, lastname } = req.body;
     const newProfile = new Profile({
       email: email,
@@ -61,7 +63,7 @@ export function createExpressApp(config: IConfig): express.Express {
     });
     newProfile.save();
     res.send("Utilisateur créée");
-  });
+  });*/
 
   /*app.get("/profile/:id", (req: Request, res: Response) => {
     const id = req.params["id"];
