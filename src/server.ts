@@ -47,6 +47,7 @@ export function createExpressApp(config: IConfig): express.Express {
   }) as ErrorRequestHandler);
 
   app.use("/profiles", profileRoutes);
+  // app.use("/profile", profileRoutes);
 
   app.use("/login", loginRoute);
 
@@ -60,6 +61,7 @@ export function createExpressApp(config: IConfig): express.Express {
       email: email,
       firstname: firstname,
       lastname: lastname,
+      //password: password,
     });
     newProfile.save();
     res.send("Utilisateur créée");
