@@ -25,11 +25,7 @@ export function createExpressApp(config: IConfig): express.Express {
   app.use(morgan("combined"));
   app.use(helmet());
   app.use(express.json());
-  app.use(cors());
-
-  app.use(authenticationInitialize());
-
-  app.use(authenticationSession());
+  app.use(cors({credentials: true, origin: true}));
 
   app.use(
     session({
@@ -41,12 +37,15 @@ export function createExpressApp(config: IConfig): express.Express {
     })
   );
 
+  app.use(authenticationInitialize());
+  app.use(authenticationSession());
+
   app.use(((err, _req, res, _next) => {
     console.error(err.stack);
     res.status(500).send(!express_debug ? "Oups" : err);
   }) as ErrorRequestHandler);
 
-  app.use("/profiles", profileRoutes);
+  app.use("/profile", profileRoutes);
   // app.use("/profile", profileRoutes);
 
   app.use("/login", loginRoute);
