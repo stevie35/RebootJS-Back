@@ -22,8 +22,9 @@ async function getAllMessages(user: IProfile, conversationId?: string){
   }
 }
 
-async function createMessage(user: IProfile, conversationId: string, targets: string[], emitter: string, content: string){
-  // TO DO
+async function createMessage(conversationId: string, targets: string[], emitter: string, content: string){
+    const message = new Message({conversationId, targets, emitter, content})
+    return await message.save();
 }
 
 export {

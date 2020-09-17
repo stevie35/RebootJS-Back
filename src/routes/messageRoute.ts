@@ -17,8 +17,9 @@ router.get('/:conversationId', authenticationRequired, async (req: Request, res:
 
 router.post('/', authenticationRequired, async (req: Request, res: Response) => {
   if(!req.user) { return res.status(401).send('You must be authenticated')};
-  const { conversationId, targets, content, emitter } = req.body;
-  return await messageController.createMessage(req.user as IProfile, conversationId, targets, emitter, content);
+  const { conversationId, targets, content } = req.body;
+  const user = req.user as IProfile;
+  return await messageController.createMessage(conversationId, targets, user._id, content);
 })
 
 export default router;
