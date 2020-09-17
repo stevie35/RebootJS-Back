@@ -15,7 +15,7 @@ async function getAllMessages(user: IProfile, conversationId?: string){
     const messages = await Message.find(
       query,
       null,
-      { sort: { createdAt: 1 } });
+      { sort: { createdAt: 'asc' } });
     return messages;
   } catch (error) {
     throw new Error("Error while searching for messages in DB")
