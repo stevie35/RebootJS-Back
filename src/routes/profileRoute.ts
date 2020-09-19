@@ -89,4 +89,13 @@ router.get('/', authenticationRequired, (req: Request, res: Response) => {
     })
 })
 
+router.patch('/conversation-seen/:conversationId', authenticationRequired, async (req: Request, res: Response) => {
+  const user = req.user as IProfile;
+  const conversationId = req.params['conversationId'];
+
+  user.updateSeen(conversationId, new Date().toISOString());
+  const savedUser = await user.save();
+  return res.status(200).send(savedUser);
+})
+
 export default router;
