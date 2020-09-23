@@ -6,6 +6,7 @@ export interface IProfile extends Document {
   lastname: string;
   firstname: string;
   conversationSeen: { [conversationId: string] : string }
+  socket?: string;
   getFullname: () => string;
   setPassword: (password: string) => void;
   verifyPassword: (password: string) => boolean;
@@ -20,6 +21,7 @@ const profileSchema = new Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   password: { type: String, required: true },
+  socket: { type: String },
   conversationSeen: { type: Object }
 });
 
