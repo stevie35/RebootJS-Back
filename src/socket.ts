@@ -5,6 +5,7 @@ import { IConfig } from './config';
 import { Store } from 'express-session';
 import passport from 'passport';
 import { Profile } from './models/profiles';
+import cookieParser from 'cookie-parser';
 
 const actives = new Set<Socket>();
 export let io: SocketServer;
@@ -18,7 +19,7 @@ export function initializeSockets(config: IConfig, httpServer: HTTPServer, sessi
       secret: session_secret,
       store: sessionStore,
       passport: passport,
-      // cookieParser: cookieParser as any,
+      cookieParser: cookieParser as any,
     }),
   );
   io.on('connection', (socket) => connect(socket));
